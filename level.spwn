@@ -1,0 +1,39 @@
+extract obj_props
+extract $
+
+let count = 180
+
+let anchors = []
+
+for i in 0 .. count + 1 {
+
+
+    let obj_group = @group(i + 100)
+
+    let object = obj {
+        OBJ_ID: 1764,
+        X: 1000 + cos(i*PI/count*2)*200,
+        Y: 400 + sin(i*PI/count*2)*200,
+        SCALING: 1.5,
+        GROUPS: [obj_group],
+    }
+
+    add(object)
+    anchors.push(obj_group)
+
+    print(i)
+}
+   
+print("moving")
+
+for_loop(0..20, (i) {
+    for i in 0..anchors.length {
+        
+        group = anchors[i]
+        
+        x = cos(i*PI/count*2)*50
+        y = sin(i*PI/count*2)*50
+        
+        group.move(x, y, 0.035, easing = SINE_IN_OUT)
+    }
+})
